@@ -20,6 +20,6 @@ Izvođenje transakcija (uplata i isplata)
 Administratorske funkcije za upravljanje korisnicima
 
 ### Tehnologije
-WPF (Windows Presentation Foundation)
-MVVM (Model-View-ViewModel)
-C#
+* WPF (Windows Presentation Foundation)
+* MVVM (Model-View-ViewModel)
+* C#
