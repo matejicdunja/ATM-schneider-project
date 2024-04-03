@@ -11,7 +11,7 @@
 
 
         <!-- Registration section -->
-        <StackPanel x:Name="RegisterSection" Orientation="Horizontal" Visibility="Collapsed" Margin="0,60,0,0">
+        <StackPanel x:Name="RegisterSection" Orientation="Horizontal" Visibility="Collapsed" Margin="0,40,0,0">
             <StackPanel>
                 <Label Style="{StaticResource SignInImage}" Height="300" Width="450"/>
             </StackPanel>
