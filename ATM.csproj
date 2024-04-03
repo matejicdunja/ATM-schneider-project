@@ -187,5 +187,8 @@
   <ItemGroup>
     <Resource Include="Resources\Images\atmMainWindow.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include=".gitignore" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

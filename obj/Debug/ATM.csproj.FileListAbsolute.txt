@@ -60,3 +60,4 @@ C:\Users\dunja\OneDrive\Radna površina\schneider\atmProject\ATM\ATM\bin\Debug\M
 C:\Users\dunja\OneDrive\Radna površina\schneider\atmProject\ATM\ATM\bin\Debug\Microsoft.Extensions.Primitives.dll
 C:\Users\dunja\OneDrive\Radna površina\schneider\atmProject\ATM\ATM\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.xml
 C:\Users\dunja\OneDrive\Radna površina\schneider\atmProject\ATM\ATM\bin\Debug\Microsoft.Extensions.Primitives.xml
+C:\Users\dunja\OneDrive\Radna površina\schneider\atmProject\ATM\ATM\obj\Debug\ATM_Content.g.cs
