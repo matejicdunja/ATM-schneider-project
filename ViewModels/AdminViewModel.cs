@@ -18,7 +18,7 @@ using System.Windows.Controls;
 
 namespace ATM.ViewModels
 {
-    public class AdminViewModel : INotifyPropertyChanged
+    public class AdminViewModel : ViewModel, INotifyPropertyChanged
     {
         private User _user;
         public User User
@@ -136,14 +136,15 @@ namespace ATM.ViewModels
 
         private void LogOut()
         {
-            var adminWindow = Application.Current.MainWindow as AdminWindow;
-            if (adminWindow != null)
-            {
-                MainWindow mainWindow = new MainWindow();
-                Application.Current.MainWindow = mainWindow;
-                mainWindow.Show();
-                adminWindow.Close();
-            }
+            //var adminWindow = Application.Current.MainWindow as AdminWindow;
+            //if (adminWindow != null)
+            //{
+            //    MainWindow mainWindow = new MainWindow();
+            //    Application.Current.MainWindow = mainWindow;
+            //    mainWindow.Show();
+            //    adminWindow.Close();
+            //}
+            _navigationService.NavigateToMainViewModel();
         }
 
         private bool CanUnblockUser()

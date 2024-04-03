@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace ATM.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : ViewModel, INotifyPropertyChanged
     {
         private string _logInCardValue;
         public string LogInCardValue
@@ -152,14 +152,15 @@ namespace ATM.ViewModels
                 if (user != null)
                 {
                     RegisterMessage = "Hello " + user.Name;
-                    var mainWindow = Application.Current.MainWindow as MainWindow;
-                    if (mainWindow != null)
-                    {
-                        UserWindow userWindow = new UserWindow(user);
-                        Application.Current.MainWindow = userWindow;
-                        userWindow.Show();
-                        mainWindow.Close();
-                    }
+                    //var mainWindow = Application.Current.MainWindow as MainWindow;
+                    //if (mainWindow != null)
+                    //{
+                    //    UserWindow userWindow = new UserWindow(user);
+                    //    Application.Current.MainWindow = userWindow;
+                    //    userWindow.Show();
+                    //    mainWindow.Close();
+                    //}
+                    _navigationService.NavigateToUserViewModel(user);
                 }
                 else
                 {
@@ -202,25 +203,27 @@ namespace ATM.ViewModels
                                             Message = "Hello " + user.Name;
                                             if (!user.IsAdmin)
                                             {
-                                                var mainWindow = Application.Current.MainWindow as MainWindow;
-                                                if (mainWindow != null)
-                                                {
-                                                    UserWindow userWindow = new UserWindow(user);
-                                                    Application.Current.MainWindow = userWindow;
-                                                    userWindow.Show();
-                                                    mainWindow.Close();
-                                                }
+                                                //var mainWindow = Application.Current.MainWindow as MainWindow;
+                                                //if (mainWindow != null)
+                                                //{
+                                                //    UserWindow userWindow = new UserWindow(user);
+                                                //    Application.Current.MainWindow = userWindow;
+                                                //    userWindow.Show();
+                                                //    mainWindow.Close();
+                                                //}
+                                                _navigationService.NavigateToUserViewModel(user);
                                             }
                                             else
                                             {
-                                                var mainWindow = Application.Current.MainWindow as MainWindow;
-                                                if (mainWindow != null)
-                                                {
-                                                    AdminWindow adminWindow = new AdminWindow(user);
-                                                    Application.Current.MainWindow = adminWindow;
-                                                    adminWindow.Show();
-                                                    mainWindow.Close();
-                                                }
+                                                //var mainWindow = Application.Current.MainWindow as MainWindow;
+                                                //if (mainWindow != null)
+                                                //{
+                                                //    AdminWindow adminWindow = new AdminWindow(user);
+                                                //    Application.Current.MainWindow = adminWindow;
+                                                //    adminWindow.Show();
+                                                //    mainWindow.Close();
+                                                //}
+                                                _navigationService.NavigateToAdminViewModel(user);
                                             }
                                         }
                                         else

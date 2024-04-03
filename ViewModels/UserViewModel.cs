@@ -18,7 +18,7 @@ using System.Windows.Controls;
 
 namespace ATM.ViewModels
 {
-    public class UserViewModel : INotifyPropertyChanged
+    public class UserViewModel : ViewModel, INotifyPropertyChanged
     {
         private User _user;
         public User User
@@ -197,14 +197,15 @@ namespace ATM.ViewModels
 
         private void LogOut()
         {
-            var userWindow = Application.Current.MainWindow as UserWindow;
-            if (userWindow != null)
-            {
-                MainWindow mainWindow = new MainWindow();
-                Application.Current.MainWindow = mainWindow;
-                mainWindow.Show();
-                userWindow.Close();
-            }
+            //var userWindow = Application.Current.MainWindow as UserWindow;
+            //if (userWindow != null)
+            //{
+            //    MainWindow mainWindow = new MainWindow();
+            //    Application.Current.MainWindow = mainWindow;
+            //    mainWindow.Show();
+            //    userWindow.Close();
+            //}
+            _navigationService.NavigateToMainViewModel();
         }
 
         private void ShowBallance()
