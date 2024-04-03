@@ -12,19 +12,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ATM.Views
 {
     /// <summary>
-    /// Interaction logic for AdminWindow.xaml
+    /// Interaction logic for UserView.xaml
     /// </summary>
-    public partial class AdminWindow : Window
+    public partial class UserView : UserControl
     {
-        public AdminWindow(User user)
+        public UserView(User user)
         {
             InitializeComponent();
-            DataContext = new AdminViewModel(user);
+            DataContext = new UserViewModel(user);
         }
     }
 }

@@ -18,7 +18,7 @@ using System.Windows.Controls;
 
 namespace ATM.ViewModels
 {
-    public class AdminViewModel : INotifyPropertyChanged
+    public class AdminViewModel : ViewModel, INotifyPropertyChanged
     {
         private User _user;
         public User User
@@ -136,14 +136,7 @@ namespace ATM.ViewModels
 
         private void LogOut()
         {
-            var adminWindow = Application.Current.MainWindow as AdminWindow;
-            if (adminWindow != null)
-            {
-                MainWindow mainWindow = new MainWindow();
-                Application.Current.MainWindow = mainWindow;
-                mainWindow.Show();
-                adminWindow.Close();
-            }
+            _navigationService.NavigateToMainViewModel();
         }
 
         private bool CanUnblockUser()
@@ -162,31 +155,49 @@ namespace ATM.ViewModels
 
         private void EditProfile()
         {
-            var mainWindow = Application.Current.MainWindow as AdminWindow;
+            var mainWindow = Application.Current.MainWindow as StartWindow;
             if (mainWindow != null)
             {
-                var blockedPanel = mainWindow.FindName("BlockedUsersSection") as StackPanel;
-                var editPanel = mainWindow.FindName("EditProfileSection") as StackPanel;
-                if (blockedPanel != null && editPanel != null)
+                var startViewModel = mainWindow.DataContext as StartViewModel;
+                if (startViewModel != null)
                 {
-                    blockedPanel.Visibility = Visibility.Collapsed;
-                    editPanel.Visibility = Visibility.Visible;
+                    var currentView = startViewModel.Navigation.CurrentView as AdminView;
+                    if (currentView != null)
+                    {
+                        var blockedPanel = currentView.FindName("BlockedUsersSection") as StackPanel;
+                        var editPanel = currentView.FindName("EditProfileSection") as StackPanel;
+                        if (blockedPanel != null && editPanel != null)
+                        {
+                            blockedPanel.Visibility = Visibility.Collapsed;
+                            editPanel.Visibility = Visibility.Visible;
+                        }
+                    }
                 }
+                
             }
         }
 
         private void Back()
         {
-            var mainWindow = Application.Current.MainWindow as AdminWindow;
+            var mainWindow = Application.Current.MainWindow as StartWindow;
             if (mainWindow != null)
             {
-                var blockedPanel = mainWindow.FindName("BlockedUsersSection") as StackPanel;
-                var editPanel = mainWindow.FindName("EditProfileSection") as StackPanel;
-                if (blockedPanel != null && editPanel != null)
+                var startViewModel = mainWindow.DataContext as StartViewModel;
+                if (startViewModel != null)
                 {
-                    blockedPanel.Visibility = Visibility.Visible;
-                    editPanel.Visibility = Visibility.Collapsed;
+                    var currentView = startViewModel.Navigation.CurrentView as AdminView;
+                    if (currentView != null)
+                    {
+                        var blockedPanel = currentView.FindName("BlockedUsersSection") as StackPanel;
+                        var editPanel = currentView.FindName("EditProfileSection") as StackPanel;
+                        if (blockedPanel != null && editPanel != null)
+                        {
+                            blockedPanel.Visibility = Visibility.Visible;
+                            editPanel.Visibility = Visibility.Collapsed;
+                        }
+                    }
                 }
+
             }
         }
 
@@ -217,6 +228,7 @@ namespace ATM.ViewModels
             if (CanEdit())
             {
                 _userService.EditProfile(User, NameValue, SurnameValue, CardValue);
+                MessageBox.Show("Successfull!");
             }
             else
             {

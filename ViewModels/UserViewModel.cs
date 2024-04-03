@@ -18,7 +18,7 @@ using System.Windows.Controls;
 
 namespace ATM.ViewModels
 {
-    public class UserViewModel : INotifyPropertyChanged
+    public class UserViewModel : ViewModel, INotifyPropertyChanged
     {
         private User _user;
         public User User
@@ -178,72 +178,90 @@ namespace ATM.ViewModels
 
         private void EditProfile()
         {
-            var mainWindow = Application.Current.MainWindow as UserWindow;
+            var mainWindow = Application.Current.MainWindow as StartWindow;
             if (mainWindow != null)
             {
-                var ballancePanel = mainWindow.FindName("BallanceSection") as StackPanel;
-                var withdrawPanel = mainWindow.FindName("WithdrawSection") as StackPanel;
-                var topUpPanel = mainWindow.FindName("TopUpSection") as StackPanel;
-                var editPanel = mainWindow.FindName("EditProfileSection") as StackPanel;
-                if (ballancePanel != null && withdrawPanel != null && topUpPanel != null && editPanel != null)
+                var startViewModel = mainWindow.DataContext as StartViewModel;
+                if (startViewModel != null)
                 {
-                    withdrawPanel.Visibility = Visibility.Collapsed;
-                    topUpPanel.Visibility = Visibility.Collapsed;
-                    ballancePanel.Visibility = Visibility.Collapsed;
-                    editPanel.Visibility = Visibility.Visible;
+                    var currentView = startViewModel.Navigation.CurrentView as UserView;
+                    if (currentView != null)
+                    {
+                        var ballancePanel = currentView.FindName("BallanceSection") as StackPanel;
+                        var withdrawPanel = currentView.FindName("WithdrawSection") as StackPanel;
+                        var topUpPanel = currentView.FindName("TopUpSection") as StackPanel;
+                        var editPanel = currentView.FindName("EditProfileSection") as StackPanel;
+                        if (ballancePanel != null && withdrawPanel != null && topUpPanel != null && editPanel != null)
+                        {
+                            withdrawPanel.Visibility = Visibility.Collapsed;
+                            topUpPanel.Visibility = Visibility.Collapsed;
+                            ballancePanel.Visibility = Visibility.Collapsed;
+                            editPanel.Visibility = Visibility.Visible;
+                        }
+                    }
                 }
             }
         }
 
         private void LogOut()
         {
-            var userWindow = Application.Current.MainWindow as UserWindow;
-            if (userWindow != null)
-            {
-                MainWindow mainWindow = new MainWindow();
-                Application.Current.MainWindow = mainWindow;
-                mainWindow.Show();
-                userWindow.Close();
-            }
+            _navigationService.NavigateToMainViewModel();
         }
 
         private void ShowBallance()
         {
-            var mainWindow = Application.Current.MainWindow as UserWindow;
+            var mainWindow = Application.Current.MainWindow as StartWindow;
             if (mainWindow != null)
             {
-                var ballancePanel = mainWindow.FindName("BallanceSection") as StackPanel;
-                var withdrawPanel = mainWindow.FindName("WithdrawSection") as StackPanel;
-                var topUpPanel = mainWindow.FindName("TopUpSection") as StackPanel;
-                var editPanel = mainWindow.FindName("EditProfileSection") as StackPanel;
-                if (ballancePanel != null && withdrawPanel != null && topUpPanel != null && editPanel != null)
+                var startViewModel = mainWindow.DataContext as StartViewModel;
+                if (startViewModel != null)
                 {
-                        withdrawPanel.Visibility = Visibility.Collapsed;
-                        topUpPanel.Visibility = Visibility.Collapsed;
-                        editPanel.Visibility = Visibility.Collapsed;
-                        ballancePanel.Visibility = Visibility.Visible;
+                    var currentView = startViewModel.Navigation.CurrentView as UserView;
+                    if (currentView != null)
+                    {
+                        var ballancePanel = currentView.FindName("BallanceSection") as StackPanel;
+                        var withdrawPanel = currentView.FindName("WithdrawSection") as StackPanel;
+                        var topUpPanel = currentView.FindName("TopUpSection") as StackPanel;
+                        var editPanel = currentView.FindName("EditProfileSection") as StackPanel;
+                        if (ballancePanel != null && withdrawPanel != null && topUpPanel != null && editPanel != null)
+                        {
+                            withdrawPanel.Visibility = Visibility.Collapsed;
+                            topUpPanel.Visibility = Visibility.Collapsed;
+                            ballancePanel.Visibility = Visibility.Visible;
+                            editPanel.Visibility = Visibility.Collapsed;
+                        }
+                    }
                 }
             }
         }
 
         private void Withdraw()
         {
-            var mainWindow = Application.Current.MainWindow as UserWindow;
+            var mainWindow = Application.Current.MainWindow as StartWindow;
             if (mainWindow != null)
             {
-                var ballancePanel = mainWindow.FindName("BallanceSection") as StackPanel;
-                var withdrawPanel = mainWindow.FindName("WithdrawSection") as StackPanel;
-                var topUpPanel = mainWindow.FindName("TopUpSection") as StackPanel;
-                var editPanel = mainWindow.FindName("EditProfileSection") as StackPanel;
-                if (ballancePanel != null && withdrawPanel != null && topUpPanel != null && editPanel != null)
+                var startViewModel = mainWindow.DataContext as StartViewModel;
+                if (startViewModel != null)
                 {
-                    topUpPanel.Visibility = Visibility.Collapsed;
-                    editPanel.Visibility = Visibility.Collapsed;
-                    ballancePanel.Visibility = Visibility.Collapsed;
-                    withdrawPanel.Visibility = Visibility.Visible;
+                    var currentView = startViewModel.Navigation.CurrentView as UserView;
+                    if (currentView != null)
+                    {
+                        var ballancePanel = currentView.FindName("BallanceSection") as StackPanel;
+                        var withdrawPanel = currentView.FindName("WithdrawSection") as StackPanel;
+                        var topUpPanel = currentView.FindName("TopUpSection") as StackPanel;
+                        var editPanel = currentView.FindName("EditProfileSection") as StackPanel;
+                        if (ballancePanel != null && withdrawPanel != null && topUpPanel != null && editPanel != null)
+                        {
+                            withdrawPanel.Visibility = Visibility.Visible;
+                            topUpPanel.Visibility = Visibility.Collapsed;
+                            ballancePanel.Visibility = Visibility.Collapsed;
+                            editPanel.Visibility = Visibility.Collapsed;
+                        }
+                    }
                 }
             }
         }
+
         private void DoneWithdraw()
         {
             if (CanWithdraw())
@@ -289,19 +307,27 @@ namespace ATM.ViewModels
 
         private void TopUp()
         {
-            var mainWindow = Application.Current.MainWindow as UserWindow;
+            var mainWindow = Application.Current.MainWindow as StartWindow;
             if (mainWindow != null)
             {
-                var ballancePanel = mainWindow.FindName("BallanceSection") as StackPanel;
-                var withdrawPanel = mainWindow.FindName("WithdrawSection") as StackPanel;
-                var topUpPanel = mainWindow.FindName("TopUpSection") as StackPanel;
-                var editPanel = mainWindow.FindName("EditProfileSection") as StackPanel;
-                if (ballancePanel != null && withdrawPanel != null && topUpPanel != null && editPanel != null)
+                var startViewModel = mainWindow.DataContext as StartViewModel;
+                if (startViewModel != null)
                 {
-                    withdrawPanel.Visibility = Visibility.Collapsed;
-                    editPanel.Visibility = Visibility.Collapsed;
-                    ballancePanel.Visibility = Visibility.Collapsed;
-                    topUpPanel.Visibility = Visibility.Visible;
+                    var currentView = startViewModel.Navigation.CurrentView as UserView;
+                    if (currentView != null)
+                    {
+                        var ballancePanel = currentView.FindName("BallanceSection") as StackPanel;
+                        var withdrawPanel = currentView.FindName("WithdrawSection") as StackPanel;
+                        var topUpPanel = currentView.FindName("TopUpSection") as StackPanel;
+                        var editPanel = currentView.FindName("EditProfileSection") as StackPanel;
+                        if (ballancePanel != null && withdrawPanel != null && topUpPanel != null && editPanel != null)
+                        {
+                            withdrawPanel.Visibility = Visibility.Collapsed;
+                            topUpPanel.Visibility = Visibility.Visible;
+                            ballancePanel.Visibility = Visibility.Collapsed;
+                            editPanel.Visibility = Visibility.Collapsed;
+                        }
+                    }
                 }
             }
         }
@@ -370,6 +396,7 @@ namespace ATM.ViewModels
             if (CanEdit())
             {
                 _userService.EditProfile(User, NameValue, SurnameValue, CardValue);
+                MessageBox.Show("Successfull!");
             }
             else
             {
