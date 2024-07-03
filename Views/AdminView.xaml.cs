@@ -1,4 +1,5 @@
-﻿using ATM.ViewModels;
+﻿using ATM.Models;
+using ATM.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,16 +15,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ATM
+namespace ATM.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AdminView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AdminView : UserControl
     {
-        public MainWindow()
+        public AdminView(User user)
         {
             InitializeComponent();
+            DataContext = new AdminViewModel(user);
         }
     }
 }

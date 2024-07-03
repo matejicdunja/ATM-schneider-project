@@ -1,6 +1,4 @@
-﻿using ATM.Models;
-using ATM.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,14 +15,13 @@ using System.Windows.Shapes;
 namespace ATM.Views
 {
     /// <summary>
-    /// Interaction logic for UserWindow.xaml
+    /// Interaction logic for StartWindow.xaml
     /// </summary>
-    public partial class UserWindow : Window
+    public partial class StartWindow : Window
     {
-        public UserWindow(User user)
+        public StartWindow()
         {
             InitializeComponent();
-            DataContext = new UserViewModel(user);
         }
     }
 }

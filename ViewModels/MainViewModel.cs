@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace ATM.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : ViewModel, INotifyPropertyChanged
     {
         private string _logInCardValue;
         public string LogInCardValue
@@ -104,23 +104,31 @@ namespace ATM.ViewModels
 
         private void SwitchStackPanel(bool register)
         {
-            var mainWindow = Application.Current.MainWindow as MainWindow;
+            var mainWindow = Application.Current.MainWindow as StartWindow;
             if (mainWindow != null)
             {
-                var registerPanel = mainWindow.FindName("RegisterSection") as StackPanel;
-                var signInPanel = mainWindow.FindName("SignInSection") as StackPanel;
-                if (registerPanel != null && signInPanel != null)
+                var startViewModel = mainWindow.DataContext as StartViewModel;
+                if (startViewModel != null)
                 {
-                    // change to register
-                    if (register)
+                    var currentView = startViewModel.Navigation.CurrentView as MainView;
+                    if (currentView != null)
                     {
-                        signInPanel.Visibility = Visibility.Collapsed;
-                        registerPanel.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        registerPanel.Visibility = Visibility.Collapsed;
-                        signInPanel.Visibility= Visibility.Visible;
+                        var registerPanel = currentView.FindName("RegisterSection") as StackPanel;
+                        var signInPanel = currentView.FindName("SignInSection") as StackPanel;
+                        if (registerPanel != null && signInPanel != null)
+                        {
+                            // change to register
+                            if (register)
+                            {
+                                signInPanel.Visibility = Visibility.Collapsed;
+                                registerPanel.Visibility = Visibility.Visible;
+                            }
+                            else
+                            {
+                                registerPanel.Visibility = Visibility.Collapsed;
+                                signInPanel.Visibility = Visibility.Visible;
+                            }
+                        }
                     }
                 }
             }
@@ -152,14 +160,7 @@ namespace ATM.ViewModels
                 if (user != null)
                 {
                     RegisterMessage = "Hello " + user.Name;
-                    var mainWindow = Application.Current.MainWindow as MainWindow;
-                    if (mainWindow != null)
-                    {
-                        UserWindow userWindow = new UserWindow(user);
-                        Application.Current.MainWindow = userWindow;
-                        userWindow.Show();
-                        mainWindow.Close();
-                    }
+                    _navigationService.NavigateToUserViewModel(user);
                 }
                 else
                 {
@@ -202,25 +203,11 @@ namespace ATM.ViewModels
                                             Message = "Hello " + user.Name;
                                             if (!user.IsAdmin)
                                             {
-                                                var mainWindow = Application.Current.MainWindow as MainWindow;
-                                                if (mainWindow != null)
-                                                {
-                                                    UserWindow userWindow = new UserWindow(user);
-                                                    Application.Current.MainWindow = userWindow;
-                                                    userWindow.Show();
-                                                    mainWindow.Close();
-                                                }
+                                                _navigationService.NavigateToUserViewModel(user);
                                             }
                                             else
                                             {
-                                                var mainWindow = Application.Current.MainWindow as MainWindow;
-                                                if (mainWindow != null)
-                                                {
-                                                    AdminWindow adminWindow = new AdminWindow(user);
-                                                    Application.Current.MainWindow = adminWindow;
-                                                    adminWindow.Show();
-                                                    mainWindow.Close();
-                                                }
+                                                _navigationService.NavigateToAdminViewModel(user);
                                             }
                                         }
                                         else
